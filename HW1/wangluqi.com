@@ -2,7 +2,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        root /home/nat/www/wangluqi.com;
+        root /home/luqi/www/wangluqi.com;
 
         index index.html;
 
