@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Task 3</title>
+    <style media=""text/css"">
+      h1 {
+        text-align: center;
+      }
+      li {
+        font-size: 40px;
+      }
+      .column {
+        float: left;
+      }
+      .menu {
+        width: 33.3%;
+      }
+      .content {
+        width: 66.6%
+      }
+      .menu ul {
+        list-style-type: none;
+        margin: 20px;
+        padding: 0;
+      }
+      .menu li {
+        padding: 8px;
+        margin-bottom: 1px;
+        background-color: #6d0505;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HW03 Task Three</h1>
+      <div class="column menu">
+        <ul>
+          <li id="lorem" onclick="clickLorem()">Lorem Ipsem</li>
+          <li id="bottles" onclick="clickBottles()">99 Bottles</li>
+          <li id="last" onclick="clickLast()">Last Thing</li>
+        </ul>
+      </div>
+      <div class="column content">
+      </div>
+      <script type="text/javascript">
+        var loremContent = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh nunc, molestie quis dui et, tincidunt pharetra felis. Nulla facilisi. Donec tempus enim a tortor pellentesque, non tempus ante accumsan. Phasellus sodales lectus semper nunc mattis, vel eleifend odio pellentesque. Proin pretium purus id risus vestibulum sodales sed in nibh. Ut quis lectus quis massa vehicula hendrerit. Integer et commodo arcu. Aliquam consequat purus a pulvinar hendrerit. Aliquam erat volutpat. Pellentesque ante sapien, mattis ac tempor et, blandit nec lectus. Aenean sit amet arcu eros.</p>" +
+         "<p>Morbi lacus nisl, accumsan vitae maximus quis, ornare eu nulla. Nullam velit eros, suscipit vel semper et, ullamcorper sed urna. Praesent vel augue vitae leo auctor maximus eget et purus. Quisque in eros et sapien mattis ultricies quis at quam. Vestibulum scelerisque nulla vitae ipsum luctus, a sodales enim convallis. Vivamus tincidunt scelerisque porta. Vivamus sed nibh id lectus tincidunt pretium vitae vel felis. Pellentesque tincidunt nisi ac volutpat rhoncus. Vestibulum ligula</p>" +
+         "<p>Morbi lacus nisl, accumsan vitae maximus quis, ornare eu nulla. Nullam velit eros, suscipit vel semper et, ullamcorper sed urna. Praesent vel augue vitae leo auctor maximus eget et purus. Quisque in eros et sapien mattis ultricies quis at quam. Vestibulum scelerisque nulla vitae ipsum luctus, a sodales enim convallis. Vivamus tincidunt scelerisque porta. Vivamus sed nibh id lectus tincidunt pretium vitae vel felis. Pellentesque tincidunt nisi ac volutpat rhoncus. Vestibulum ligula nulla, lobortis sit amet posuere id, venenatis at arcu.</p>" +
+         "<p>Vivamus porta imperdiet mattis. Maecenas orci mi, dapibus sed posuere rhoncus, accumsan sed arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus hendrerit velit elementum efficitur placerat. Curabitur eu commodo sapien, et fermentum lorem. Cras mattis malesuada nibh at laoreet. Duis eleifend eu elit et porttitor. Pellentesque volutpat venenatis magna, ac aliquam augue malesuada nec. Proin condimentum sem ante, ut tempus lacus volutpat non. Ut et pretium leo.</p>"
+        var bottlesContent = "<p>99 bottles of beer on the wall, 99 bottles of beer.</p><p>Take one down, pass it around, 98 bottles of beer on the wall...</p><p>No more bottles of beer on the wall, no more bottles of beer.</p><p>Go to the store and buy some more, 99 bottles of beer on the wall...</p>"
+        var lastContent = "<p>This is the third thing</p>";
+        document.getElementsByClassName('content')[0].innerHTML = loremContent;
+        function clickLorem() {
+          document.getElementsByClassName('content')[0].innerHTML = loremContent;
+        }
+        function clickBottles() {
+          document.getElementsByClassName('content')[0].innerHTML =  bottlesContent;
+        }
+        function clickLast() {
+          document.getElementsByClassName('content')[0].innerHTML =  lastContent;
+        }
+      </script>
+  </body>
+</html>
