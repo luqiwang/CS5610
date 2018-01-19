@@ -30,15 +30,18 @@
         background-color: #6d0505;
         color: #ffffff;
       }
+      a {
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
     <h1>HW03 Task Three</h1>
       <div class="column menu">
         <ul>
-          <li id="lorem" onclick="clickLorem()">Lorem Ipsem</li>
-          <li id="bottles" onclick="clickBottles()">99 Bottles</li>
-          <li id="last" onclick="clickLast()">Last Thing</li>
+          <li><a href="javascript: clickLorem()">Lorem Ipsem</a></li>
+          <li><a href="javascript: clickBottles()">99 Bottles</a></li>
+          <li><a href="javascript: clickLast()">Last Thing</a></li>
         </ul>
       </div>
       <div class="column content">
@@ -48,7 +51,10 @@
          "<p>Morbi lacus nisl, accumsan vitae maximus quis, ornare eu nulla. Nullam velit eros, suscipit vel semper et, ullamcorper sed urna. Praesent vel augue vitae leo auctor maximus eget et purus. Quisque in eros et sapien mattis ultricies quis at quam. Vestibulum scelerisque nulla vitae ipsum luctus, a sodales enim convallis. Vivamus tincidunt scelerisque porta. Vivamus sed nibh id lectus tincidunt pretium vitae vel felis. Pellentesque tincidunt nisi ac volutpat rhoncus. Vestibulum ligula</p>" +
          "<p>Morbi lacus nisl, accumsan vitae maximus quis, ornare eu nulla. Nullam velit eros, suscipit vel semper et, ullamcorper sed urna. Praesent vel augue vitae leo auctor maximus eget et purus. Quisque in eros et sapien mattis ultricies quis at quam. Vestibulum scelerisque nulla vitae ipsum luctus, a sodales enim convallis. Vivamus tincidunt scelerisque porta. Vivamus sed nibh id lectus tincidunt pretium vitae vel felis. Pellentesque tincidunt nisi ac volutpat rhoncus. Vestibulum ligula nulla, lobortis sit amet posuere id, venenatis at arcu.</p>" +
          "<p>Vivamus porta imperdiet mattis. Maecenas orci mi, dapibus sed posuere rhoncus, accumsan sed arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus hendrerit velit elementum efficitur placerat. Curabitur eu commodo sapien, et fermentum lorem. Cras mattis malesuada nibh at laoreet. Duis eleifend eu elit et porttitor. Pellentesque volutpat venenatis magna, ac aliquam augue malesuada nec. Proin condimentum sem ante, ut tempus lacus volutpat non. Ut et pretium leo.</p>"
-        var bottlesContent = "<p>99 bottles of beer on the wall, 99 bottles of beer.</p><p>Take one down, pass it around, 98 bottles of beer on the wall...</p><p>No more bottles of beer on the wall, no more bottles of beer.</p><p>Go to the store and buy some more, 99 bottles of beer on the wall...</p>"
+        var bottlesContent = "<p>98 bottles of beer on the wall, 98 bottles of beer. Take one down and pass it around, 97 bottles of beer on the wall.</p>" +
+                            "<p>97 bottles of beer on the wall, 97 bottles of beer. Take one down and pass it around, 96 bottles of beer on the wall.</p>"+
+                            "<p>96 bottles of beer on the wall, 96 bottles of beer. Take one down and pass it around, 95 bottles of beer on the wall.</p>"+
+                            "<p>95 bottles of beer on the wall, 95 bottles of beer. Take one down and pass it around, 94 bottles of beer on the wall.</p>";
         var lastContent = "<p>This is the third thing</p>";
         document.getElementsByClassName('content')[0].innerHTML = loremContent;
         function clickLorem() {
@@ -63,3 +69,4 @@
       </script>
   </body>
 </html>
+
