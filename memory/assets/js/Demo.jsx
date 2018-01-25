@@ -7,7 +7,7 @@ export default function run_demo(root) {
   ReactDOM.render(<Demo />, root);
 }
 
-const initChars = ['A','B','C','D','F','E','D','C','B','E','F','G','H','H','G','A'];
+const initChars = ['A','B','C','D','E','F','G','H','A','B','C','D','E','F','G','H'];
 const initState = {chars: initChars,
                   tileContents: [],
                   lockTiles: [],
@@ -22,9 +22,17 @@ class Demo extends Component {
     super(props);
     this.state = initState;
   }
+  // the shuffle algorithme is based on stack overflow: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+  shuffle(chars) {
+    for (let i = chars.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [chars[i], chars[j]] = [chars[j], chars[i]];
+    }
+    return chars;
+  }
 
   restart() {
-    this.setState({chars: initChars,
+    this.setState({chars: this.shuffle(initChars),
                   tileContents: [],
                   lockTiles: [],
                   firstClick: -1,
