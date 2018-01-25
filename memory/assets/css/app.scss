@@ -1,0 +1,25 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+body {
+   max-width: 800px;
+   margin: auto;
+}
+.tile {
+  background: #00FFFF;
+  border: 1px solid #999;
+  float: left;
+  line-height: 34px;
+  height: 150px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0;
+  text-align: center;
+  width: 150px;
+  font-size: 50px;
+}
+#game{
+  max-width: 800px;
+  display: block;
+}
