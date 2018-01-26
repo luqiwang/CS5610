@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
 import _ from 'lodash';
 
 export default function run_demo(root) {
@@ -8,20 +8,20 @@ export default function run_demo(root) {
 }
 
 const initChars = ['A','B','C','D','F','E','D','C','B','E','F','G','H','H','G','A'];
-const initState = {chars: initChars,
+
+class Demo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {chars: this.shuffle(initChars),
                   tileContents: [],
                   lockTiles: [],
                   firstClick: -1,
                   count: 0,
                   pair: 0,
                   inShowTime: false
-                  };
-
-class Demo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = initState;
+                 };
   }
+
   // the shuffle algorithme is based on stack overflow: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffle(chars) {
     for (let i = chars.length - 1; i > 0; i--) {
@@ -84,12 +84,16 @@ class Demo extends Component {
   renderTile(chars) {
     return(
       <div>
+        <Row>
         {_.map(chars, (char,index) =>
-          <button className="tile" key={index}
-             onClick={() => this.clickHandler(index)}>
-             {this.showContent(index)}
-           </button>
+          <Col xs="3" key={index}>
+            <button className="tile"
+               onClick={() => this.clickHandler(index)}>
+               {this.showContent(index)}
+             </button>
+          </Col>
         )}
+      </Row>
       </div>
     )
   }
@@ -97,13 +101,16 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <div id="game">
-        <div>{this.renderTile(this.state.chars)}</div>
-        <h3>Clicks: {this.state.count}</h3>
-        <Button color="primary" size="lg" onClick={() => this.restart()}>Restart</Button>
-        <p>Rule: Score =<br />100 - Clicks</p>
-        <div>{this.showScore()}</div>
-        </div>
+
+        <Container><Row>{this.renderTile(this.state.chars)}</Row></Container>
+        <Container id="menu">
+          <Row>
+            <Col lg="4"><h3>Clicks: {this.state.count}</h3></Col>
+            <Col lg="4"><Button color="primary" size="lg" onClick={() => this.restart()}>Restart</Button></Col>
+            <Col lg="4"><h3>Score: {100 - this.state.count}</h3></Col>
+          </Row>
+          <div>{this.showScore()}</div>
+        </Container>
       </div>
     )
   }
