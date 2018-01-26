@@ -7,7 +7,7 @@ export default function run_demo(root) {
   ReactDOM.render(<Demo />, root);
 }
 
-const initChars = ['A','B','C','D','E','F','G','H','A','B','C','D','E','F','G','H'];
+const initChars = ['A','B','C','D','F','E','D','C','B','E','F','G','H','H','G','A'];
 const initState = {chars: initChars,
                   tileContents: [],
                   lockTiles: [],
