@@ -1,4 +1,7 @@
 defmodule Calc do
+
+  # the main function is based on Professor Nat's notes:
+  # http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/notes/07-elixir/rw.exs
   def main() do
     case IO.gets("input: ") do
       :eof ->
