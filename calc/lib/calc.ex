@@ -47,10 +47,6 @@ defmodule Calc do
     end
   end
 
-  def opposite(string) do
-    {num, frac} = Integer.parse(string)
-  end
-
   def count(list, nums, ops) do
     cond do
       length(list) > 0 ->
