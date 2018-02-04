@@ -14,11 +14,16 @@ defmodule Calc do
     end
   end
 
+#eval function can handle negative operand.
   def eval(line) do
-    list = trim_line(line)
-    cond do
-      List.first(list) == "-" -> count(list, [0], [])
-      true -> count(list, [], [])
+    if String.contains?(line, ".") do
+      "Input should not contain point"
+    else
+      list = trim_line(line)
+      cond do
+        List.first(list) == "-" -> count(list, [0], [])
+        true -> count(list, [], [])
+      end
     end
   end
 

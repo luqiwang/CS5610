@@ -55,4 +55,7 @@ defmodule CalcTest do
     assert Calc.is_number?("-5") == true
   end
 
+  test "invliad_input" do
+    assert Calc.eval("1 + 0.5") == "Input should not contain point"
+  end
 end
