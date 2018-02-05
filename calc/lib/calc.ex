@@ -58,7 +58,7 @@ defmodule Calc do
         [head | list] = list
         cond do
           is_number?(head) ->
-            {num, frac} = Integer.parse(head)
+            {num, _frac} = Integer.parse(head)
             nums = nums ++ [num]
           head == "(" ->
             if List.first(list) == "-" do
@@ -69,7 +69,7 @@ defmodule Calc do
           head == ")" -> {nums, ops} = deal_bracket(nums, ops)
           head == "+" || head == "-" || head == "*" || head == "/" ->
             {nums, ops} = deal_operator(nums, ops, head)
-          true ->
+          true -> "invalid inupt"
         end
         count(list, nums, ops)
       length(list) == 0 && length(ops) > 0 ->
@@ -93,7 +93,7 @@ defmodule Calc do
         {nums, ops} = operate_stacks(nums, ops)
         deal_bracket(nums, ops)
       true ->
-        {op, ops} = List.pop_at(ops, -1)
+        {_op, ops} = List.pop_at(ops, -1)
         {nums, ops}
     end
   end
@@ -115,7 +115,7 @@ defmodule Calc do
       op == "-" -> num1 - num2
       op == "*" -> num1 * num2
       op == "/" -> Integer.floor_div(num1, num2)
-      true ->
+      true -> "invalid op"
     end
   end
 
