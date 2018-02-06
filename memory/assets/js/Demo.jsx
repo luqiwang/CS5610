@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Container, Col, Row } from 'reactstrap';
 import _ from 'lodash';
+import Tile from './Tile';
+import Menu from './Menu';
 
 export default function run_demo(root) {
   ReactDOM.render(<Demo />, root);
@@ -86,12 +88,9 @@ class Demo extends Component {
       <div>
         <Row>
         {_.map(chars, (char,index) =>
-          <Col xs="3" key={index}>
-            <button className="tile"
-               onClick={() => this.clickHandler(index)}>
-               {this.showContent(index)}
-             </button>
-          </Col>
+          <Tile key = {index} index={index}
+          clickHandler={this.clickHandler.bind(this)}
+          showContent={this.showContent.bind(this)}/>
         )}
       </Row>
       </div>
@@ -101,16 +100,11 @@ class Demo extends Component {
   render() {
     return (
       <div>
-
         <Container><Row>{this.renderTile(this.state.chars)}</Row></Container>
-        <Container id="menu">
-          <Row>
-            <Col lg="4"><h3>Clicks: {this.state.count}</h3></Col>
-            <Col lg="4"><Button color="primary" size="lg" onClick={() => this.restart()}>Restart</Button></Col>
-            <Col lg="4"><h3>Score: {100 - this.state.count}</h3></Col>
-          </Row>
-          <div>{this.showScore()}</div>
-        </Container>
+        <Menu
+        count={this.state.count}
+        restart={this.restart.bind(this)}
+        showScore={this.showScore.bind(this)} />
       </div>
     )
   }
