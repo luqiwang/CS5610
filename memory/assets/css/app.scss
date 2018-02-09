@@ -31,3 +31,12 @@ body {
 button:focus {
   outline:0;
 }
+
+input {
+  border-style: solid;
+  border-width: 1px;
+}
+
+#mid {
+  margin: 100px;
+}

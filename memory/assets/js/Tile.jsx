@@ -5,7 +5,7 @@ export default function(props) {
   return (
     <Col xs="3">
       <button className="tile"
-         onClick={() => props.clickHandler(props.index)}>
+         onClick={() => props.sendClick(props.index)}>
          {props.showContent(props.index)}
        </button>
     </Col>

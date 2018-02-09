@@ -5,16 +5,16 @@ import _ from 'lodash';
 import Tile from './Tile';
 import Menu from './Menu';
 
-export default function run_demo(root) {
-  ReactDOM.render(<Demo />, root);
+export default function run_demo(root, channel) {
+  ReactDOM.render(<Demo channel={channel} />, root);
 }
 
-const initChars = ['A','B','C','D','F','E','D','C','B','E','F','G','H','H','G','A'];
 
 class Demo extends Component {
   constructor(props) {
     super(props);
-    this.state = {chars: this.shuffle(initChars),
+    this.channel = props.channel;
+    this.state = {chars: [],
                   tileContents: [],
                   lockTiles: [],
                   firstClick: -1,
@@ -22,53 +22,39 @@ class Demo extends Component {
                   pair: 0,
                   inShowTime: false
                  };
+   this.channel.join()
+       // .receive("ok", resp => { console.log("Joined successfully", resp.game)})
+       .receive("ok", this.gotView.bind(this))
+       .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
-  // the shuffle algorithme is based on stack overflow: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-  shuffle(chars) {
-    for (let i = chars.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [chars[i], chars[j]] = [chars[j], chars[i]];
+
+  gotView(view) {
+    // console.log("New View", view.game)
+    this.setState(view.game);
+    if (view.game.inShowTime) {
+      setTimeout(() => {
+        this.flipBack(view.game)
+     }, 1000)
     }
-    return chars;
+  }
+
+  sendClick(index) {
+    if (this.state.inShowTime) return;
+    this.channel.push("click", {index: index})
+        .receive("ok", this.gotView.bind(this))
+  }
+
+  flipBack(game) {
+    this.channel.push("flip_back", {game: game})
+        .receive("ok", this.gotView.bind(this))
   }
 
   restart() {
-    this.setState({chars: this.shuffle(initChars),
-                  tileContents: [],
-                  lockTiles: [],
-                  firstClick: -1,
-                  count: 0,
-                  pair: 0,
-                  inShowTime: false
-                  });
+    this.channel.push("restart", {hi: "there"})
+        .receive("ok", this.gotView.bind(this))
   }
 
-  clickHandler(index) {
-    if (this.state.lockTiles[index] == true || this.state.inShowTime) return;
-    let chars = this.state.chars;
-    let firstClick = this.state.firstClick;
-    let tileContents = this.state.tileContents;
-    let newcount = this.state.count + 1;
-    tileContents[index] = chars[index];
-    this.setState({count: newcount})
-    if (firstClick == -1) {
-      this.setState({firstClick: index, tileContents: tileContents})
-    } else {
-      if (index == firstClick) return;
-      if (chars[index] == chars[firstClick]) {
-        let newlockTiles = this.state.lockTiles;
-        newlockTiles[firstClick] = true;
-        newlockTiles[index] = true;
-        let newpair = this.state.pair + 1;
-        this.setState({lockTiles: newlockTiles, pair: newpair});
-      }
-      this.setState({firstClick: index, tileContents: tileContents, inShowTime: true});
-      setTimeout(() => {
-        this.setState({firstClick: -1, tileContents: [], inShowTime: false});
-      }, 1000)
-    }
-  }
 
   showContent(index) {
     if (this.state.lockTiles[index] == true) return (<div>Done</div>);
@@ -89,7 +75,7 @@ class Demo extends Component {
         <Row>
         {_.map(chars, (char,index) =>
           <Tile key = {index} index={index}
-          clickHandler={this.clickHandler.bind(this)}
+          sendClick={this.sendClick.bind(this)}
           showContent={this.showContent.bind(this)}/>
         )}
       </Row>
