@@ -64,7 +64,6 @@ class Demo extends Component {
   showScore() {
     if (this.state.pair == 8) {
       let score = 100 - this.state.count
-      //alert("Success! Your Score is " + score);
       return (<div><h3>Success!</h3><p>Your Score is {score}</p></div>)
     }
   }
