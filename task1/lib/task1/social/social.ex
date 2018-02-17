@@ -19,6 +19,8 @@ defmodule Task1.Social do
   """
   def list_tasks do
     Repo.all(Task)
+    |> Repo.preload(:user)
+    |> Repo.preload(:creater)
   end
 
   @doc """

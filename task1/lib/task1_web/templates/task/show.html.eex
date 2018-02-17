@@ -17,7 +17,12 @@
     <%= @task.time %>
   </li>
 
-</ul>
 
-<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+</ul>
+<%= if @current_user.id == @task.user_id do %>
+  <div><%= link "Go To Complete Task", to: task_complete_path(@conn, :complete, @task) %></div>
+<% end %>
+<%= if @current_user.id == @task.creater_id do %>
+  <div><%= link "Edit", to: task_path(@conn, :edit, @task) %></div>
+<% end %>
+<div><%= link "Back", to: task_path(@conn, :index) %></div>

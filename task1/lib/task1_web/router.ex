@@ -4,10 +4,12 @@ defmodule Task1Web.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug Task1.Plugs.GetCurrentUser
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
+
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -18,7 +20,11 @@ defmodule Task1Web.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
-    resources "/tasks", TaskController
+    resources "/tasks", TaskController do
+      get "/complete", TaskController, :complete, as: :complete
+    end
+    post "/session", SessionController, :create
+    delete "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.

@@ -1,2 +1,21 @@
 /* This file is for your main application css. */
 @import "bootstrap";
+
+#login{
+  text-align: center;
+}
+#landing{
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#register{
+  float: right;
+  font-size: 23px
+}
+#status{
+  color: green;
+}
+#notice{
+  color: orange;
+}

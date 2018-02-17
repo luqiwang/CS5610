@@ -11,26 +11,19 @@ defmodule Task1Web.TaskController do
 
   def new(conn, _params) do
     changeset = Social.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, task: %Task{})
   end
 
-  def create_one(conn, assignee, task_params) do
-    task_params = Map.put(task_params, "user_id", assignee)
+
+  def create(conn, %{"task" => task_params}) do
     case Social.create_task(task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :show, task))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, task: %Task{})
     end
-  end
-
-  def create(conn, %{"task" => task_params}) do
-    %{"assignees" => assignees_string} = task_params
-    task = Map.delete(task_params, "assignees")
-    assignees = String.split(assignees_string)
-    Enum.each(assignees, &(create_one(conn,&1, task_params)))
   end
 
   def show(conn, %{"id" => id}) do
@@ -44,8 +37,14 @@ defmodule Task1Web.TaskController do
     render(conn, "edit.html", task: task, changeset: changeset)
   end
 
+
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Social.get_task!(id)
+    %{"time" => time} = task_params
+    time = String.to_integer(time)
+    time = Integer.floor_div(time, 15) * 15
+    time = Integer.to_string(time)
+    task_params = Map.replace!(task_params, "time", time)
 
     case Social.update_task(task, task_params) do
       {:ok, task} ->
@@ -65,4 +64,11 @@ defmodule Task1Web.TaskController do
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: task_path(conn, :index))
   end
+
+  def complete(conn, %{"task_id" => id}) do
+    task = Social.get_task!(id)
+    changeset = Social.change_task(task)
+    render(conn, "complete.html", task: task, changeset: changeset)
+  end
+
 end
