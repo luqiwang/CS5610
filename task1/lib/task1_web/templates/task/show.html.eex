@@ -13,15 +13,23 @@
   </li>
 
   <li>
+    <strong>Creater:</strong>
+    <%= @task.creater.name %>
+  </li>
+
+  <li>
+    <strong>Assignee:</strong>
+    <%= @task.user.name %>
+  </li>
+
+  <li>
     <strong>Time:</strong>
     <%= @task.time %>
   </li>
 
 
 </ul>
-<%= if @current_user.id == @task.user_id do %>
-  <div><%= link "Go To Complete Task", to: task_complete_path(@conn, :complete, @task) %></div>
-<% end %>
+
 <%= if @current_user.id == @task.creater_id do %>
   <div><%= link "Edit", to: task_path(@conn, :edit, @task) %></div>
 <% end %>

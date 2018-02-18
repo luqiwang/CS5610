@@ -37,7 +37,11 @@ defmodule Task1.Social do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id) do
+    Repo.get!(Task, id)
+    |> Repo.preload(:creater)
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a task.

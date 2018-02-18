@@ -3,6 +3,7 @@ defmodule Task1Web.TaskController do
 
   alias Task1.Social
   alias Task1.Social.Task
+  alias Task1.Accounts
 
   def index(conn, _params) do
     tasks = Social.list_tasks()
@@ -10,8 +11,9 @@ defmodule Task1Web.TaskController do
   end
 
   def new(conn, _params) do
+    user_id_list = Accounts.get_all_id()
     changeset = Social.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset, task: %Task{})
+    render(conn, "new.html", changeset: changeset, task: %Task{}, user_id_list: user_id_list)
   end
 
 
@@ -32,20 +34,21 @@ defmodule Task1Web.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
+    user_id_list = Accounts.get_all_id()
     task = Social.get_task!(id)
     changeset = Social.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    render(conn, "edit.html", task: task, changeset: changeset, user_id_list: user_id_list)
   end
 
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Social.get_task!(id)
-    %{"time" => time} = task_params
-    time = String.to_integer(time)
-    time = Integer.floor_div(time, 15) * 15
-    time = Integer.to_string(time)
-    task_params = Map.replace!(task_params, "time", time)
-
+    if Map.get(task_params, "time") do
+      %{"time" => time} = task_params
+      time = String.to_integer(time)
+      time = Integer.floor_div(time, 15) * 15 |> Integer.to_string
+      task_params = Map.replace!(task_params, "time", time)
+    end
     case Social.update_task(task, task_params) do
       {:ok, task} ->
         conn

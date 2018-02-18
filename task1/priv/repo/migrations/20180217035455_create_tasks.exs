@@ -13,5 +13,6 @@ defmodule Task1.Repo.Migrations.CreateTasks do
     end
 
     create index(:tasks, [:user_id])
+    create index(:tasks, [:creater_id])
   end
 end
