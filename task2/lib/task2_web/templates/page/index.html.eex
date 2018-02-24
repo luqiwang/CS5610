@@ -1,0 +1,17 @@
+<div id="landing">
+  <h1 id="login">Log In</h1>
+      <!-- session_path(@conn, :create) -->
+      <%= form_tag("/session", method: :post) do %>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" name="email"  placeholder="Enter email">
+      </div>
+        <!-- passwords come later -->
+        <div class="form-group">
+          <button class="btn btn-primary">Log in</button>
+          <div id="register">
+            <%= link "Register", to: user_path(@conn, :new) %>
+          </div>
+        </div>
+      <% end %>
+</div>

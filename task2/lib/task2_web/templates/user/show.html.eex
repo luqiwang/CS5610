@@ -1,0 +1,92 @@
+
+
+<div class="row">
+  <div class="col-3">
+    <h2>My Profile</h2>
+    <ul>
+      <li>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </li>
+
+      <li>
+        <strong>Name:</strong>
+        <%= @user.name %>
+      </li>
+
+      <li>
+        <strong>Manager:</strong>
+        <%= if @user.manager do %>
+          <%=  @user.manager.name %>
+        <% end %>
+      </li>
+
+      <li>
+        <strong>Subordinates:</strong>
+        <ul>
+          <%= for subordinate <- @user.subordinates do %>
+            <li><%= subordinate.name %></li>
+          <% end %>
+        </ul>
+      </li>
+
+    </ul>
+    <%= if @current_user.id == @user.id do %>
+       <%= button "New Task", to: task_path(@conn, :new), method: :get, class: "btn btn-primary " %>
+    <% end %>
+    <%= button "Edit", to: user_path(@conn, :edit, @user), method: :get, class: "btn btn-warning" %>
+    <%= button "Back", to: task_path(@conn, :index), method: :get, class: "btn btn-info" %>
+  </div>
+  <div class="col-9">
+    <h2>Tasks You Posted</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Title</th>
+          <th>Assignee</th>
+          <th>Time</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for task <- @tasks do %>
+        <tr>
+          <td id="status">
+            <%= if task.time do %>
+              Completed
+            <% end %>
+          </td>
+          <td><%= task.title %></td>
+
+          <td>
+            <%= if task.user_id == @current_user.id do %>
+              <b id="notice"><%= task.user.name %></b>
+            <% else %>
+              <%= task.user.name %>
+            <% end %>
+          </td>
+          <td>
+          <%= if task.time do %>
+            <span><%= task.time %></span><span> minutes</span>
+          <% else %>
+          <% end %>
+          </td>
+
+          <td class="text-right">
+            <%= if @current_user.id == task.user_id do %>
+              <span><%= link "Complete", to: task_complete_path(@conn, :complete, task), class: "btn btn-default btn-xs" %></span>
+            <% end %>
+            <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+            <%= if @current_user.id == task.creater_id do %>
+            <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

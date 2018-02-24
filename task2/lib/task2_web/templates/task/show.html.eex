@@ -1,0 +1,36 @@
+<h2>Show Task</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @task.title %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @task.body %>
+  </li>
+
+  <li>
+    <strong>Creater:</strong>
+    <%= @task.creater.name %>
+  </li>
+
+  <li>
+    <strong>Assignee:</strong>
+    <%= @task.user.name %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @task.time %>
+  </li>
+
+
+</ul>
+
+<%= if @current_user.id == @task.creater_id do %>
+  <div><%= link "Edit", to: task_path(@conn, :edit, @task) %></div>
+<% end %>
+<div><%= link "Back", to: task_path(@conn, :index) %></div>
