@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export PORT=5300
+export PORT=5105
 export MIX_ENV=prod
-export GIT_PATH=/home/tracker/src/task2
+export GIT_PATH=/home/task2/src/task2
 
 PWD=`pwd`
 if [ $PWD != $GIT_PATH ]; then
@@ -11,8 +11,8 @@ if [ $PWD != $GIT_PATH ]; then
 	exit 1
 fi
 
-if [ $USER != "tracker" ]; then
-	echo "Error: must run as user 'tracker'"
+if [ $USER != "task2" ]; then
+	echo "Error: must run as user 'task2'"
 	echo "  Current user is $USER"
 	exit 2
 fi
