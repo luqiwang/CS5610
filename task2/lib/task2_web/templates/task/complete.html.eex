@@ -3,11 +3,23 @@
   window.task_id = "<%= @task.id %>"
 </script>
 
-<h2>Complete Task</h2>
+<h2>Complete Task: <%= @task.title %></h2>
+<p>Description: <%= @task.body %></p>
+<div class="form-group">
+  <label for="exampleInputEmail1">Input start Time (Your input must follow YYYY-MM-DDTHH:MM:SS, Like: 2018-01-01T03:24:00)</label>
+  <input class="form-control" id="add-start-time">
+</div>
+<div class="form-group">
+  <label for="exampleInputPassword1">Input End Time (Your input must follow YYYY-MM-DDTHH:MM:SS, Like: 2018-01-01T03:24:00)</label>
+  <input class="form-control" id="add-end-time">
+</div>
+<div id="add-time-warnning"></div>
+<button onclick="add_time_block()" class="btn btn-primary">Add Time Block</button>
+<br/>
 
 <button class="btn btn-primary"  id="start-button"
         data-start="false">
-  Start A Block
+  Start Working
 </button>
 <h3>Work History(This uses Greenwich Mean Time)</h3>
 <div id="edit-block"></div>

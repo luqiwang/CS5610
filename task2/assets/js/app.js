@@ -68,10 +68,10 @@ function set_button(block_id) {
 function update_button() {
   let btn = $("#start-button")
   if (!btn.data("start")) {
-    btn.text("Start")
+    btn.text("Start Working")
     btn.attr('class', 'btn btn-primary')
   } else {
-    btn.text("End")
+    btn.text("Stop Working ")
     btn.attr('class', 'btn btn-warning')
   }
 }
@@ -175,6 +175,40 @@ function start_click(ev) {
   } else {
     end(btn.data("block_id"))
   }
+}
+
+window.add_time_block = function () {
+  console.log("click!!!")
+  let start_val = $("#add-start-time").val();
+  let end_val = $("#add-end-time").val();
+  let startDate = new Date("" + start_val);
+  let endDate = new Date("" + end_val);
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    $("#add-time-warnning").css("color", "red")
+    $("#add-time-warnning").text("Your input is Invalid, Please follow the rule")
+  }
+  let text = JSON.stringify({
+    timeblock: {
+      start_time: startDate.getTime(),
+      end_time: endDate.getTime(),
+      task_id: task_id
+    },
+  })
+
+  $.ajax(start_path, {
+    method: "post",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: text,
+    success: (resp) => {
+      $("#add-start-time").val("")
+      $("#add-end-time").val("")
+      $("#add-time-warnning").css("color", "green")
+      $("#add-time-warnning").text("Success!")
+      showBlock(resp.data)
+     },
+  });
+
 }
 
 function init_start() {
