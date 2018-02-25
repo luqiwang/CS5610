@@ -10,6 +10,7 @@ defmodule Task2.Social.Task do
     field :title, :string
     belongs_to :creater, Task2.Accounts.User
     belongs_to :user, Task2.Accounts.User
+    has_many :timeblocks ,Task2.Social.Timeblock, foreign_key: :task_id 
 
     timestamps()
   end

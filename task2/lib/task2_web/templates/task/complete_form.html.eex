@@ -10,11 +10,7 @@
   <%= hidden_input f, :title, value: @task.title, class: "form-control" %>
   <%= hidden_input f, :body, value: @task.body, class: "form-control" %>
   <%= hidden_input f, :user_id, value: @task.user_id, class: "form-control" %>
-  <div class="form-group">
-    <%= label f, :time, "Input the minutes you spent" ,class: "control-label" %>
-    <%= text_input f, :time, class: "form-control" %>
-    <%= error_tag f, :time %>
-  </div>
+  <%= hidden_input f, :time, value: @time, class: "form-control" %>
 
   <div class="form-group">
     <%= submit "Complete Task", class: "btn btn-success" %>

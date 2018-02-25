@@ -1,5 +1,42 @@
+<script type="text/javascript">
+  window.start_path = "<%= timeblock_path(@conn, :index) %>";
+  window.task_id = "<%= @task.id %>"
+</script>
+
 <h2>Complete Task</h2>
 
+<button class="btn btn-primary"  id="start-button"
+        data-start="false">
+  Start A Block
+</button>
+<h3>Work History(This uses Greenwich Mean Time)</h3>
+<div id="edit-block"></div>
+<div id="warnning"></div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Time Spent</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="blocks">
+    <%= for timeblock <- @task.timeblocks do %>
+      <tr id = "<%= "b"<>Integer.to_string(timeblock.id) %>" class="block-row">
+        <% start_time =  Integer.floor_div(timeblock.start_time, 1000) %>
+        <% end_time =  Integer.floor_div(timeblock.end_time, 1000) %>
+        <% {:ok, start_iso} = DateTime.from_unix(start_time) %>
+        <% {:ok, end_iso} = DateTime.from_unix(end_time) %>
+        <th><%= start_iso %></th>
+        <th><%= end_iso %></th>
+        <th><%= Integer.floor_div((end_time - start_time), 60) %>minutes</th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= render "complete_form.html", Map.put(assigns, :action, task_path(@conn, :update, @task)) %>
+
 
 <span><%= link "Back", to: task_path(@conn, :index) %></span>

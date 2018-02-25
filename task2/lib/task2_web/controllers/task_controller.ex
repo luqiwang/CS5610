@@ -50,12 +50,6 @@ defmodule Task2Web.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Social.get_task!(id)
-    if Map.get(task_params, "time") do
-      %{"time" => time} = task_params
-      time = String.to_integer(time)
-      time = Integer.floor_div(time, 15) * 15 |> Integer.to_string
-      task_params = Map.replace!(task_params, "time", time)
-    end
     case Social.update_task(task, task_params) do
       {:ok, task} ->
         conn
@@ -77,8 +71,15 @@ defmodule Task2Web.TaskController do
 
   def complete(conn, %{"task_id" => id}) do
     task = Social.get_task!(id)
+    time = List.foldr(task.timeblocks, 0, fn(x, acc) -> diff_time(x) + acc end)
     changeset = Social.change_task(task)
-    render(conn, "complete.html", task: task, changeset: changeset)
+    render(conn, "complete.html", task: task, changeset: changeset, time: time)
+  end
+
+  def diff_time(timeblock) do
+    start_time =  Integer.floor_div(timeblock.start_time, 1000)
+    end_time =  Integer.floor_div(timeblock.end_time, 1000)
+    Integer.floor_div((end_time - start_time), 60)
   end
 
 end
