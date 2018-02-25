@@ -37,7 +37,7 @@ REL_TAR=~/src/task2/_build/prod/rel/task2/releases/0.0.1/task2.tar.gz
 (cd ~/www/task2 && tar xzvf $REL_TAR)
 
 crontab - <<CRONTAB
-@reboot bash /home/tracker/src/task2/start.sh
+@reboot bash /home/task2/src/task2/start.sh
 CRONTAB
 
 #. start.sh
